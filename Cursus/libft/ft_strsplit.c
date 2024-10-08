@@ -6,13 +6,12 @@
 /*   By: pperez-a <pperez-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 11:53:52 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/10/08 12:15:02 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/10/08 18:15:40 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
-//counting words to know when to stop
 static int	count_words(char const *s, char c)
 {
 	int	count;
@@ -36,45 +35,81 @@ static int	count_words(char const *s, char c)
 	return (count);
 }
 
-// Helper function to allocate and copy a word
-static char	*word_dup(const char *start, size_t len)
+static void	free_arr(char **aux_arr, int j)
 {
-	char	*word;
+	int	i;
 
-	word = (char *)malloc(len + 1);
-	if (word)
+	i = 0;
+	while (i < j)
 	{
-		strncpy(word, start, len);
-		word[len] = '\0';
+		free(aux_arr[i]);
+		i++;
 	}
-	return (word);
+	free(aux_arr);
+}
+
+static char	*new_str(const char *s, int start, int end)
+{
+	char	*aux_str;
+	int		len;
+	int		i;
+
+	i = 0;
+	len = end - start;
+	aux_str = (char *)malloc((len + 1));
+	if (!aux_str)
+		return (NULL);
+	while (i < len)
+	{
+		aux_str[i] = s[i + start];
+		i++;
+	}
+	aux_str[i] = 0;
+	return (aux_str);
+}
+
+static char	**split_aux(char const *s, char c, char **aux_arr, int start)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (s[i])
+	{
+		while (s[i] != 0 && s[i] == c)
+			i++;
+		start = i;
+		while (s[i] != 0 && s[i] != c)
+			i++;
+		if (i > start)
+		{
+			aux_arr[j] = new_str(s, start, i);
+			if (!aux_arr[j])
+			{
+				free_arr(aux_arr, j);
+				return (NULL);
+			}
+			j++;
+		}
+	}
+	aux_arr[j] = 0;
+	return (aux_arr);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	int			words;
-	char		**aux_str;
-	int			i;
-	const char	*start = s;
+	char	**aux_arr;
+	int		start;
+	int		words;
 
 	if (!s)
 		return (NULL);
 	words = count_words(s, c);
-	aux_str = (char **)malloc((words + 1) * sizeof(char *));
-	if (!aux_str)
+	aux_arr = (char **)malloc((words + 1) * sizeof(char *));
+	if (!aux_arr)
 		return (NULL);
-	i = 0;
-	while (*s)
-	{
-		while (*s == c)
-			s++;
-		if (*s)
-		{
-			while (*s && *s != c)
-				s++;
-			aux_str[i++] = word_dup(start, s - start);
-		}
-	}
-	aux_str[i] = NULL;
-	return (aux_str);
+	start = 0;
+	aux_arr = split_aux(s, c, aux_arr, start);
+	return (aux_arr);
 }

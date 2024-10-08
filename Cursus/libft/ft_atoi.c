@@ -1,27 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pperez-a <pperez-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 11:53:40 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/10/08 12:26:42 by pperez-a         ###   ########.fr       */
+/*   Created: 2024/09/25 20:57:49 by pperez-a          #+#    #+#             */
+/*   Updated: 2024/09/25 21:21:23 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_striteri(char *s, void (*f)(unsigned int, char *))
+int	ft_atoi(const char *nptr)
 {
-	unsigned int	i;
+	int	i;
+	int	result;
+	int	sign;
 
-	if (!s || !f)
-		return ;
 	i = 0;
-	while (s[i])
+	result = 0;
+	sign = 1;
+	while ((nptr[i] >= 9 && nptr[i] <= 13) || nptr[i] == 32)
+		i++;
+	if (nptr[i] == 43 || nptr[i] == 45)
 	{
-		f(i, &s[i]);
+		if (nptr[i] == 45)
+			sign *= -1;
 		i++;
 	}
+	while (nptr[i] >= 48 && nptr[i] <= 57)
+	{
+		result = result * 10 + (nptr[i] - 48);
+		i++;
+	}
+	return (result * sign);
 }

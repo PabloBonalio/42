@@ -6,11 +6,11 @@
 /*   By: pperez-a <pperez-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 11:53:37 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/10/08 12:00:52 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/10/08 12:26:46 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
 void	ft_putchar_fd(char c, int fd)
 {

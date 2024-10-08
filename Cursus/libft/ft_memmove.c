@@ -1,27 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pperez-a <pperez-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 11:53:40 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/10/08 12:26:42 by pperez-a         ###   ########.fr       */
+/*   Created: 2024/10/08 14:44:51 by pperez-a          #+#    #+#             */
+/*   Updated: 2024/10/08 16:44:44 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_striteri(char *s, void (*f)(unsigned int, char *))
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	unsigned int	i;
+	size_t		i;
+	char		*aux_dest;
+	const char	*aux_src;
 
-	if (!s || !f)
-		return ;
-	i = 0;
-	while (s[i])
+	aux_dest = (char *)dest;
+	aux_src = (const char *)src;
+	if (aux_dest < aux_src)
 	{
-		f(i, &s[i]);
-		i++;
+		i = 0;
+		while (i < n)
+		{
+			aux_dest[i] = aux_src[i];
+			i++;
+		}
 	}
+	else
+	{
+		i = n;
+		while (i > 0)
+		{
+			i--;
+			aux_dest[i] = aux_src[i];
+		}
+	}
+	return (dest);
 }
