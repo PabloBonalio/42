@@ -6,7 +6,7 @@
 /*   By: pperez-a <pperez-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 11:53:52 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/10/08 12:01:37 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/10/08 12:12:23 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,22 +51,24 @@ static char	*word_dup(const char *start, size_t len)
 
 char	**ft_split(char const *s, char c)
 {
+	int			words;
+	char		**aux_str;
+	int			i;
+	const char	*start = s;
+
 	if (!s)
 		return (NULL);
-
-	int words = count_words(s, c);
-	char **aux_str = (char **)malloc((words + 1) * sizeof(char *));
+	words = count_words(s, c);
+	aux_str = (char **)malloc((words + 1) * sizeof(char *));
 	if (!aux_str)
 		return (NULL);
-
-	int i = 0;
+	i = 0;
 	while (*s)
 	{
 		while (*s == c)
 			s++;
 		if (*s)
 		{
-			const char *start = s;
 			while (*s && *s != c)
 				s++;
 			aux_str[i++] = word_dup(start, s - start);
@@ -74,4 +76,4 @@ char	**ft_split(char const *s, char c)
 	}
 	aux_str[i] = NULL;
 	return (aux_str);
-};
+}
