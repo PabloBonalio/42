@@ -6,7 +6,7 @@
 /*   By: pperez-a <pperez-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 12:57:41 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/06/10 13:40:23 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/10/08 11:56:56 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	ft_strlen(char *str)
 		i++;
 	return (i);
 }
+
 int	main(int argc, char **argv)
 {
 	if (argc != 2)

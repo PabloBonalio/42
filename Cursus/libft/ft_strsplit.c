@@ -1,10 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strsplit.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pperez-a <pperez-a@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/08 11:53:52 by pperez-a          #+#    #+#             */
+/*   Updated: 2024/10/08 12:01:37 by pperez-a         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 
-static int count_words(char const *s, char c)
+static int	count_words(char const *s, char c)
 {
-	int count = 0;
-	int in_word = 0;
+	int	count;
+	int	in_word;
 
+	count = 0;
+	in_word = 0;
 	while (*s)
 	{
 		if (*s != c && !in_word)
@@ -18,30 +32,32 @@ static int count_words(char const *s, char c)
 		}
 		s++;
 	}
-	return count;
+	return (count);
 }
 
 // Helper function to allocate and copy a word
-static char *word_dup(const char *start, size_t len)
+static char	*word_dup(const char *start, size_t len)
 {
-	char *word = (char *)malloc(len + 1);
+	char	*word;
+
+	word = (char *)malloc(len + 1);
 	if (word)
 	{
 		strncpy(word, start, len);
 		word[len] = '\0';
 	}
-	return word;
+	return (word);
 }
 
-char **ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	if (!s)
-		return NULL;
+		return (NULL);
 
 	int words = count_words(s, c);
 	char **aux_str = (char **)malloc((words + 1) * sizeof(char *));
 	if (!aux_str)
-		return NULL;
+		return (NULL);
 
 	int i = 0;
 	while (*s)
@@ -57,5 +73,5 @@ char **ft_split(char const *s, char c)
 		}
 	}
 	aux_str[i] = NULL;
-	return aux_str;
-};     
+	return (aux_str);
+};
