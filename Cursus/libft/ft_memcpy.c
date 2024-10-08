@@ -6,7 +6,7 @@
 /*   By: pperez-a <pperez-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:45:58 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/10/08 18:33:31 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/10/08 19:05:33 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	char	*aux_dest;
 	char	*aux_src;
 
-	if (!src || !dest)
+	if (!src && !dest)
 		return (NULL);
 	aux_dest = (char *)dest;
 	aux_src = (char *)src;
