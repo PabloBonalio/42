@@ -6,14 +6,23 @@
 /*   By: pperez-a <pperez-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 20:07:21 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/10/08 16:55:57 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/10/09 00:30:55 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef LIBFT_H
+#define LIBFT_H
 
 #include <limits.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <unistd.h>
+
+typedef struct s_list
+{
+    void *content;
+    struct s_list *next;
+} t_list;
 
 int		ft_atoi(const char *nptr);
 void	ft_bzero(void *s, size_t n);
@@ -46,3 +55,5 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
+
+#endif /* LIBFT_H */
