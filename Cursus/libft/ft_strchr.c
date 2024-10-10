@@ -6,7 +6,7 @@
 /*   By: pperez-a <pperez-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:21:13 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/10/08 15:02:42 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/10/09 18:21:56 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_strchr(const char *s, int c)
 			return ((char *)s);
 		s++;
 	}
-	if (c == 0)
+	if (aux_char == 0)
 		return ((char *)s);
 	return (NULL);
 }
