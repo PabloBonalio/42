@@ -26,10 +26,10 @@ $(NAME): $(OBJECTS)
 
 ################################################################################
 
-#rule for building the library
+#rule for building the library w/o bonus
 all: $(NAME)
 
-#rule for cleaning objects and bonus
+#rule for cleaning objects including bonus
 clean:
 	rm -f $(OBJECTS) $(BONUS_OBJECTS)
 
@@ -37,10 +37,10 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 
-#rule for cleaning objects, library and rebuilding the library
+#rule for cleaning objects, and library and then rebuild
 re: fclean all
 
-#rule for cleaning objects, library and rebuilding the library with bonus
+#rule for building library including bonus
 bonus: $(OBJECTS) $(BONUS_OBJECTS)
 	ar rcs $(NAME) $(OBJECTS) $(BONUS_OBJECTS)
 
