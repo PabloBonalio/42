@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsplit.c                                      :+:      :+:    :+:   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pperez-a <pperez-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 11:53:52 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/10/08 18:15:40 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/10/11 12:14:34 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	count_words(char const *s, char c)
+static int	count_words(const char *s, char c)
 {
 	int	count;
 	int	in_word;
@@ -35,12 +35,12 @@ static int	count_words(char const *s, char c)
 	return (count);
 }
 
-static void	free_arr(char **aux_arr, int j)
+static void	free_arr(char **aux_arr, int aux_arr_index)
 {
 	int	i;
 
 	i = 0;
-	while (i < j)
+	while (i < aux_arr_index)
 	{
 		free(aux_arr[i]);
 		i++;
@@ -68,39 +68,38 @@ static char	*new_str(const char *s, int start, int end)
 	return (aux_str);
 }
 
-static char	**split_aux(char const *s, char c, char **aux_arr, int start)
+static char	**split_aux(const char *s, char c, char **aux_arr, int start)
 {
-	int	i;
-	int	j;
+	int	s_index;
+	int	aux_arr_index;
 
-	i = 0;
-	j = 0;
-	while (s[i])
+	s_index = 0;
+	aux_arr_index = 0;
+	while (s[s_index])
 	{
-		while (s[i] != 0 && s[i] == c)
-			i++;
-		start = i;
-		while (s[i] != 0 && s[i] != c)
-			i++;
-		if (i > start)
+		while (s[s_index] != 0 && s[s_index] == c)
+			s_index++;
+		start = s_index;
+		while (s[s_index] != 0 && s[s_index] != c)
+			s_index++;
+		if (s_index > start)
 		{
-			aux_arr[j] = new_str(s, start, i);
-			if (!aux_arr[j])
+			aux_arr[aux_arr_index] = new_str(s, start, s_index);
+			if (!aux_arr[aux_arr_index])
 			{
-				free_arr(aux_arr, j);
+				free_arr(aux_arr, aux_arr_index);
 				return (NULL);
 			}
-			j++;
+			aux_arr_index++;
 		}
 	}
-	aux_arr[j] = 0;
+	aux_arr[aux_arr_index] = 0;
 	return (aux_arr);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(const char *s, char c)
 {
 	char	**aux_arr;
-	int		start;
 	int		words;
 
 	if (!s)
@@ -109,7 +108,6 @@ char	**ft_split(char const *s, char c)
 	aux_arr = (char **)malloc((words + 1) * sizeof(char *));
 	if (!aux_arr)
 		return (NULL);
-	start = 0;
-	aux_arr = split_aux(s, c, aux_arr, start);
+	aux_arr = split_aux(s, c, aux_arr, 0);
 	return (aux_arr);
 }
