@@ -6,7 +6,7 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:44:26 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/10/30 15:25:34 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/10/30 18:02:42 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdint.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <sys/stat.h>
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
