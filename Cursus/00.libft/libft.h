@@ -3,16 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pperez-a <pperez-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 20:07:21 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/10/09 15:17:34 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/10/30 15:48:33 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
+# include <fcntl.h>
 # include <limits.h>
 # include <stdint.h>
 # include <stdlib.h>
@@ -69,5 +74,19 @@ void				ft_lstdelone(t_list *lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
+char				*get_next_line(int fd);
+char				*ft_free_gnl(char **str);
+char				*ft_strjoin_gnl(char *s1, char *s2);
+char				*ft_strchr_gnl(char *s, int c);
+char				*ft_substr_gnl(char *source, unsigned int start,
+						size_t length);
+size_t				ft_strlen_gnl(char *s);
+int					ft_putchar_count(char c, int fd);
+int					ft_putstr_count(char *s, int fd);
+int					ft_putnbr_count(long long int n, int fd);
+int					ft_putnbr_hex_count(unsigned long long n, int fd,
+						int upcase);
+int					ft_printf(char const *s, ...);
+int					ft_putaddress_count(void *ptr);
 
 #endif /* LIBFT_H */
