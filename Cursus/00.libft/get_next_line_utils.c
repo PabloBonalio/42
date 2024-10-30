@@ -6,11 +6,11 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:00:41 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/10/30 15:27:20 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:47:07 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
 size_t	ft_strlen_gnl(char *s)
 {

@@ -6,11 +6,11 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 19:18:52 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/10/18 18:43:08 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:46:19 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 int	ft_putchar_count(char c, int fd)
 {
@@ -59,8 +59,8 @@ int	ft_putnbr_count(long long int n, int fd)
 
 int	ft_putnbr_hex_count(unsigned long long nbr, int fd, int upcase)
 {
-	int					count;
-	char				*base;
+	int		count;
+	char	*base;
 
 	if (upcase)
 		base = "0123456789ABCDEF";
