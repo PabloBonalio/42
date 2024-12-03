@@ -1,44 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_map.c                                        :+:      :+:    :+:   */
+/*   03_check_map_aux.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/02 19:09:11 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/02 20:40:37 by pperez-a         ###   ########.fr       */
+/*   Created: 2024/12/03 16:56:02 by pperez-a          #+#    #+#             */
+/*   Updated: 2024/12/03 16:56:43 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static int	is_enclosed(char **map)
+static int	is_enclosed(char *map)
 {
 	int	i;
 	int	j;
 	int	len;
 
 	len = 0;
-	while (map[0][len])
+	while (map[0][len] && map[0][len] != '\n')
 		len++;
 	i = 0;
-	while (map[i])
+	while (map[i + 1])
 	{
 		if (map[i][0] != '1' || map[i][len - 1] != '1')
 			return (0);
 		j = 0;
-		while ((i == 0 || !map[i + 1]) && map[i][j]) // Check top or bottom row
-		{
-			if (map[i][j] != '1')
+		while ((i == 0 || j == 0 || j == len - 1) && map[i][j] != '\n')
+			if (map[i][j++] != '1')
 				return (0);
-			j++;
-		}
 		i++;
 	}
+	while (len--)
+		if (map[i][len] != '1')
+			return (0);
 	return (1);
 }
 
-static int	has_chars(char **map)
+static int	has_chars(char *map)
 {
 	int	i;
 	int	p;
@@ -60,11 +60,11 @@ static int	has_chars(char **map)
 		i++;
 	}
 	if (p != 1 || c < 1 || e != 1)
-		return (ft_printf("player: %i\ncollect: %i\nexit: %i\n", p, c, e), 0);
-	return (ft_printf("player: %i\ncollect: %i\nexit: %i\n", p, c, e), 1);
+		return (0);
+	return (1);
 }
 
-static int	is_rectangle(char **map)
+static int	is_rectangle(char *map)
 {
 	int		i;
 	size_t	length;
@@ -82,13 +82,18 @@ static int	is_rectangle(char **map)
 	return (1);
 }
 
-int	check_map(char **map)
+static int	check_ber(char *map)
 {
-	if (!is_rectangle(map))
-		return (ft_printf("Map is not rectangular!\n"), 0);
-	if (!has_chars(map))
-		return (ft_printf("Map is missing elements!\n"), 0);
-	if (!is_enclosed(map))
-		return (ft_printf("Map is not enclosed!\n"), 0);
-	return (ft_printf("Map is okay!\n"), 1);
+	char	*name_end;
+	char	*ext;
+
+	ext = ".ber";
+	name_end = ft_substr(map, (ft_strlen(map) - 4), 4);
+	if (ft_strncmp(name_end, ext, 4) != 0)
+	{
+		free(name_end);
+		return (0);
+	}
+	free(name_end);
+	return (1);
 }
