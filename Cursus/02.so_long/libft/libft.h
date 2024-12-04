@@ -6,7 +6,7 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 20:07:21 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/02 19:59:19 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/04 16:28:34 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int					ft_putstr_count(char *s, int fd);
 int					ft_putnbr_count(long long int n, int fd);
 int					ft_putnbr_hex_count(unsigned long long n, int fd,
 						int upcase);
-int					ft_printf(char const *s, ...);
+int					ft_printf(int fd, char const *s, ...);
 int					ft_putaddress_count(void *ptr);
 
 #endif /* LIBFT_H */

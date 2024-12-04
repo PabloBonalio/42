@@ -6,7 +6,7 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 18:10:55 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/03 16:39:39 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/04 20:02:47 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,13 @@ typedef struct s_player
 typedef struct s_map
 {
 	char			**map;
+	int				rows;
+	int				cols;
 	int				map_x;
 	int				map_y;
-	int				titems;
-	int				citems;
-	int				cexit;
-	int				cplayer;
-	int				lenline;
-	int				lencol;
+	int				collects;
+	int				exit;
+	int				player;
 }					t_map;
 
 typedef struct s_game
@@ -69,8 +68,11 @@ typedef struct s_game
 	int				endian;
 }					t_game;
 
-int					check_map(char *map);
-int					error(char *message);
-int					main_error(char *message);
+void				error(char *message, void *to_free, int exit_code);
+void				check_map(char *file, t_game *game);
+void				check_ber(char *file);
+void				is_rectangle(t_map map);
+void				has_chars(t_map map);
+void				is_enclosed(char **map);
 
 #endif

@@ -6,31 +6,31 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 19:25:10 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/10/30 16:45:27 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/04 16:27:07 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	what_var(char chr, va_list arg)
+static int	what_var(int fd, char chr, va_list arg)
 {
 	int	count;
 
 	count = 0;
 	if (chr == '%')
-		count += ft_putchar_count('%', 1);
+		count += ft_putchar_count('%', fd);
 	else if (chr == 'c')
-		count += ft_putchar_count(va_arg(arg, int), 1);
+		count += ft_putchar_count(va_arg(arg, int), fd);
 	else if (chr == 's')
-		count += ft_putstr_count(va_arg(arg, char *), 1);
+		count += ft_putstr_count(va_arg(arg, char *), fd);
 	else if (chr == 'd' || chr == 'i')
-		count += ft_putnbr_count(va_arg(arg, int), 1);
+		count += ft_putnbr_count(va_arg(arg, int), fd);
 	else if (chr == 'u')
-		count += ft_putnbr_count(va_arg(arg, unsigned int), 1);
+		count += ft_putnbr_count(va_arg(arg, unsigned int), fd);
 	else if (chr == 'x')
-		count += ft_putnbr_hex_count(va_arg(arg, unsigned int), 1, 0);
+		count += ft_putnbr_hex_count(va_arg(arg, unsigned int), fd, 0);
 	else if (chr == 'X')
-		count += ft_putnbr_hex_count(va_arg(arg, unsigned int), 1, 1);
+		count += ft_putnbr_hex_count(va_arg(arg, unsigned int), fd, 1);
 	else if (chr == 'p')
 		count += ft_putaddress_count(va_arg(arg, void *));
 	else
@@ -38,7 +38,7 @@ static int	what_var(char chr, va_list arg)
 	return (count);
 }
 
-int	ft_printf(char const *s, ...)
+int	ft_printf(int fd, char const *s, ...)
 {
 	va_list	arg;
 	int		s_index;
@@ -55,7 +55,7 @@ int	ft_printf(char const *s, ...)
 			s_index++;
 			if (!s[s_index])
 				break ;
-			result = what_var(s[s_index], arg);
+			result = what_var(fd, s[s_index], arg);
 			if (result == -1)
 				return (va_end(arg), -1);
 			count += result;

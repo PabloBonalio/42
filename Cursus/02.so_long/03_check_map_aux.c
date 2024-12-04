@@ -6,13 +6,14 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 16:56:02 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/03 16:56:43 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/04 20:01:44 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "exit_codes.h"
 #include "so_long.h"
 
-static int	is_enclosed(char *map)
+void	is_enclosed(char **map)
 {
 	int	i;
 	int	j;
@@ -25,75 +26,68 @@ static int	is_enclosed(char *map)
 	while (map[i + 1])
 	{
 		if (map[i][0] != '1' || map[i][len - 1] != '1')
-			return (0);
+			error("Map is not enclosed!", 0, 1);
 		j = 0;
 		while ((i == 0 || j == 0 || j == len - 1) && map[i][j] != '\n')
 			if (map[i][j++] != '1')
-				return (0);
+				error("Map is not enclosed!", 0, 1);
 		i++;
 	}
 	while (len--)
 		if (map[i][len] != '1')
-			return (0);
-	return (1);
+			error("Map is not enclosed!", 0, 1);
+	return ;
 }
 
-static int	has_chars(char *map)
+void	has_chars(t_map map)
 {
 	int	i;
-	int	p;
-	int	c;
-	int	e;
+	int	j;
 
 	i = 0;
-	p = 0;
-	c = 0;
-	e = 0;
-	while (map[i])
+	while (map.map[i])
 	{
-		if (ft_strchr(map[i], 'P'))
-			p++;
-		if (ft_strchr(map[i], 'C'))
-			c++;
-		if (ft_strchr(map[i], 'E'))
-			e++;
+		j = 0;
+		while (map.map[i][j])
+		{
+			if (map.map[i][j] == 'P')
+				map.player++;
+			if (map.map[i][j] == 'C')
+				map.collects++;
+			if (map.map[i][j] == 'E')
+				map.exit++;
+			j++;
+		}
 		i++;
 	}
-	if (p != 1 || c < 1 || e != 1)
-		return (0);
-	return (1);
+	if (map.player != 1 || map.collects < 1 || map.exit != 1)
+		error("Wrong number of items", 0, 1);
+	return ;
 }
 
-static int	is_rectangle(char *map)
+void	is_rectangle(t_map map)
 {
-	int		i;
-	size_t	length;
+	int	i;
 
-	length = 0;
 	i = 0;
-	length = ft_strlen(map[i]);
 	i++;
-	while (map[i])
+	while (i < map.rows - 1)
 	{
-		if (length != ft_strlen(map[i]))
-			return (0);
+		if (map.map[i][map.cols] != '\n')
+			error("Map is not rectangular!", 0, 1);
 		i++;
 	}
-	return (1);
+	return ;
 }
 
-static int	check_ber(char *map)
+void	check_ber(char *file)
 {
 	char	*name_end;
 	char	*ext;
 
 	ext = ".ber";
-	name_end = ft_substr(map, (ft_strlen(map) - 4), 4);
-	if (ft_strncmp(name_end, ext, 4) != 0)
-	{
-		free(name_end);
-		return (0);
-	}
-	free(name_end);
-	return (1);
+	name_end = ft_substr(file, (ft_strlen(file) - 4), 4);
+	if (ft_strlen(file) < 4 || ft_strncmp(name_end, ext, 4) != 0)
+		error("Wrong file format, need .ber\n", name_end, 2);
+	return ;
 }

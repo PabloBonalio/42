@@ -6,39 +6,79 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 19:09:11 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/03 17:01:59 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/04 20:01:56 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-t_game	*map_init(char *map, t_game *game)
+static void	get_dimensions(char *file, t_map map)
 {
-	read_map(map, game);
-	if (game->map.lenline >= 3 && game->map.lencol >= 3)
+	char	*temp;
+	int		i;
+	int		j;
+	int		fd;
+
+	i = 0;
+	j = 0;
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		error("Failed to open the map", 0, 1);
+	temp = get_next_line(fd);
+	while (temp != NULL)
 	{
-		game->map.map = malloc((game->map.lenline + 1) * (game->map.lencol + 1)
-				+ 1);
-		if (!game->map.map)
-			return (0);
-		game->map.map = fill_map(map, game, game->map.map);
+		if (!i)
+			i = ft_strlen(temp);
+		j++;
+		free(temp);
+		temp = get_next_line(fd);
 	}
-	else
-		return (0);
-	return (game);
+	map.rows = i - 1;
+	map.cols = j;
+	close(fd);
 }
 
-int	check_map(char *map, t_game *game)
+static void	fill_map(char *file, t_map map)
 {
-	if (!check_ber(map))
-		return (error("Wrong file format, need .ber"));
-	if (!map_init(map, game))
-		return (free(game), error("No map specified"));
-	if (!is_rectangle(game))
-		return (error("Map is not rectangular!"));
-	if (!has_chars(game))
-		return (error("Map is missing elements!"));
-	if (!is_enclosed(game))
-		return (error("Map is not enclosed!"));
-	return (ft_printf("Map is okay!"), 1);
+	int		i;
+	int		fd;
+	char	*line;
+
+	i = 0;
+	line = NULL;
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		error("Failed to open the map", 0, 1);
+	while (i < map.rows)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		map.map[i] = ft_strdup(line);
+		free(line);
+		i++;
+	}
+	close(fd);
+}
+
+void	map_init(char *file, t_map map)
+{
+	get_dimensions(file, map);
+	if (map.rows < 3 && map.cols < 3)
+		error("Error: Map dimensions are too small", 0, 1);
+	map.map = malloc((map.rows + 1) * (map.cols + 1) + 1);
+	if (!map.map)
+		error("Error: Memory allocation for map failed", map.map, 3);
+	fill_map(file, map);
+	return ;
+}
+
+void	check_map(char *file, t_game *game)
+{
+	check_ber(file);
+	map_init(file, game->map);
+	is_rectangle(game->map);
+	has_chars(game->map);
+	is_enclosed(game->map.map);
+	ft_printf(1, "Map is okay!", 1);
 }
