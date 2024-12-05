@@ -6,13 +6,13 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 19:09:11 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/04 20:01:56 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/05 15:56:42 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	get_dimensions(char *file, t_map map)
+static void	get_dimensions(char *file, t_map *map)
 {
 	char	*temp;
 	int		i;
@@ -33,12 +33,12 @@ static void	get_dimensions(char *file, t_map map)
 		free(temp);
 		temp = get_next_line(fd);
 	}
-	map.rows = i - 1;
-	map.cols = j;
+	map->cols = i - 1;
+	map->rows = j;
 	close(fd);
 }
 
-static void	fill_map(char *file, t_map map)
+static void	fill_map(char *file, t_map *map)
 {
 	int		i;
 	int		fd;
@@ -49,26 +49,26 @@ static void	fill_map(char *file, t_map map)
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		error("Failed to open the map", 0, 1);
-	while (i < map.rows)
+	while (i < map->rows)
 	{
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		map.map[i] = ft_strdup(line);
+		map->map[i] = ft_strdup(line);
 		free(line);
 		i++;
 	}
 	close(fd);
 }
 
-void	map_init(char *file, t_map map)
+void	map_init(char *file, t_map *map)
 {
 	get_dimensions(file, map);
-	if (map.rows < 3 && map.cols < 3)
+	if (map->rows < 3 && map->cols < 3)
 		error("Error: Map dimensions are too small", 0, 1);
-	map.map = malloc((map.rows + 1) * (map.cols + 1) + 1);
-	if (!map.map)
-		error("Error: Memory allocation for map failed", map.map, 3);
+	map->map = malloc((map->rows + 1) * (map->cols + 1) + 1);
+	if (!map->map)
+		error("Error: Memory allocation for map failed", map->map, 3);
 	fill_map(file, map);
 	return ;
 }
@@ -76,9 +76,9 @@ void	map_init(char *file, t_map map)
 void	check_map(char *file, t_game *game)
 {
 	check_ber(file);
-	map_init(file, game->map);
-	is_rectangle(game->map);
-	has_chars(game->map);
-	is_enclosed(game->map.map);
-	ft_printf(1, "Map is okay!", 1);
+	map_init(file, &game->map);
+	is_rectangle(&game->map);
+	has_chars(&game->map);
+	is_enclosed(&game->map);
+	ft_printf(1, "\033[32mMap is okay!\033[30m\n", 1);
 }

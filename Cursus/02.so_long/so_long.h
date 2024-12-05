@@ -6,7 +6,7 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 18:10:55 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/04 20:02:47 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/05 14:53:40 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ typedef struct s_game
 void				error(char *message, void *to_free, int exit_code);
 void				check_map(char *file, t_game *game);
 void				check_ber(char *file);
-void				is_rectangle(t_map map);
-void				has_chars(t_map map);
-void				is_enclosed(char **map);
+void				is_rectangle(t_map *map);
+void				has_chars(t_map *map);
+void				is_enclosed(t_map *map);
 
 #endif
