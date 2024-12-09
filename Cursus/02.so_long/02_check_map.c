@@ -6,7 +6,7 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 19:09:11 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/05 15:56:42 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/05 20:17:33 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,13 @@ static void	fill_map(char *file, t_map *map)
 {
 	int		i;
 	int		fd;
-	char	*line;
 
 	i = 0;
-	line = NULL;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		error("Failed to open the map", 0, 1);
 	while (i < map->rows)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-		map->map[i] = ft_strdup(line);
-		free(line);
-		i++;
-	}
+		map->map[i++] = get_next_line(fd);
 	close(fd);
 }
 
