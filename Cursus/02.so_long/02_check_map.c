@@ -6,11 +6,27 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 19:09:11 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/10 16:25:11 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/10 20:24:04 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "exit_codes.h"
 #include "so_long.h"
+
+void	is_enclosed(t_map *map)
+{
+	int	i;
+
+	i = 0;
+	while (i < map->cols - 1)
+		if (map->map[0][i] != '1' || map->map[map->rows - 1][i++] != '1')
+			error("Map is not enclosed!", 0, 1);
+	i = 0;
+	while (i < map->rows - 1)
+		if (map->map[i][0] != '1' || map->map[i++][map->cols - 1] != '1')
+			error("Map is not enclosed!", 0, 1);
+	return ;
+}
 
 void	count_elements(t_map *map, t_player *player)
 {
@@ -26,8 +42,8 @@ void	count_elements(t_map *map, t_player *player)
 			if (map->map[i][j] == 'P')
 			{
 				map->player++;
-				player->start_position[0] = i;
-				player->start_position[1] = j;
+				player->start_x = j;
+				player->start_y = i;
 			}
 			if (map->map[i][j] == 'C')
 				map->collects++;
@@ -37,7 +53,7 @@ void	count_elements(t_map *map, t_player *player)
 		i++;
 	}
 	ft_printf(1, "\033[33mPlayer coordinates: [%d, %d]\033[30m\n",
-		player->start_position[0], player->start_position[1]);
+		player->start_x, player->start_y);
 }
 
 void	is_rectangle(t_map *map)
@@ -50,7 +66,7 @@ void	is_rectangle(t_map *map)
 			error("Map is not rectangular!", 0, 1);
 }
 
-static void	get_dimensions(char *file, t_map *map)
+void	get_dimensions(char *file, t_map *map)
 {
 	char	*temp;
 	int		fd;
@@ -72,7 +88,7 @@ static void	get_dimensions(char *file, t_map *map)
 		map->cols);
 }
 
-static void	fill_map(char *file, t_map *map)
+void	fill_map(char *file, t_map *map)
 {
 	int	i;
 	int	fd;
@@ -84,13 +100,4 @@ static void	fill_map(char *file, t_map *map)
 	while (i < map->rows)
 		map->map[i++] = get_next_line(fd);
 	close(fd);
-}
-
-void	map_init(char *file, t_map *map)
-{
-	get_dimensions(file, map);
-	map->map = malloc(sizeof(char *) * (map->rows));
-	if (!map->map)
-		error("Error: Memory allocation for map failed", map->map, 3);
-	fill_map(file, map);
 }

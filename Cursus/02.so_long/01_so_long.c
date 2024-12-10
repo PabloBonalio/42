@@ -6,7 +6,7 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:16:33 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/10 16:05:45 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/10 20:10:36 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,23 @@ static void	check_ber(char *file)
 
 static void	check_map(char *file, t_map *map, t_player *player)
 {
+	int	i;
+
+	i = 0;
 	check_ber(file);
-	map_init(file, map);
+	get_dimensions(file, map);
+	map->map = malloc(sizeof(char *) * (map->rows));
+	if (!map->map)
+		error("Error: Memory allocation for map failed", map->map, 3);
+	fill_map(file, map);
 	is_rectangle(map);
 	count_elements(map, player);
 	if (map->player != 1 || map->collects < 1 || map->exit != 1)
 		error("Wrong number of items", 0, 1);
 	is_enclosed(map);
+	flood_fill(map, player->start_x, player->start_y);
+	while (i < map->rows)
+		ft_printf(1, "\033[34m%s\033[30m", map->map[i++]);
 	ft_printf(1, "\033[32mMap is okay!\033[30m\n");
 }
 

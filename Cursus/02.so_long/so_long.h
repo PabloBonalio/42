@@ -6,7 +6,7 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 18:10:55 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/10 16:15:34 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/10 19:49:25 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ typedef struct s_tile
 typedef struct s_player
 {
 	char			*player;
-	int				start_position[2];
+	int				start_x;
+	int				start_y;
 	int				cont_moves;
 	int				items;
 }					t_player;
@@ -68,9 +69,11 @@ typedef struct s_game
 }					t_game;
 
 void				error(char *message, void *to_free, int exit_code);
-void				map_init(char *file, t_map *map);
+void				get_dimensions(char *file, t_map *map);
+void				fill_map(char *file, t_map *map);
 void				is_rectangle(t_map *map);
 void				count_elements(t_map *map, t_player *player);
 void				is_enclosed(t_map *map);
+void				flood_fill(t_map *map, int x, int y);
 
 #endif
