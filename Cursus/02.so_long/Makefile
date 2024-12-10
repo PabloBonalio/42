@@ -39,7 +39,7 @@ clean:
 #rule for cleaning objects and library
 fclean: clean
 	rm -f $(NAME)
-	$(MAKE) -C $(MINILIBX_DIR) clean
+	$(MAKE) -C $(MINILIBX_DIR) clean 
 	$(MAKE) -C $(MY_LIB_DIR) fclean
 
 #rule for cleaning objects, and library and then rebuild
