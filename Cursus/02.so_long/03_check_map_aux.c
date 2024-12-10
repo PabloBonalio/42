@@ -6,7 +6,7 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 16:56:02 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/05 15:50:58 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:42:01 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,30 +43,23 @@ void	has_chars(t_map *map)
 				map->player++;
 			if (map->map[i][j] == 'C')
 				map->collects++;
-			if (map->map[i][j] == 'E')
+			if (map->map[i][j++] == 'E')
 				map->exit++;
-			j++;
 		}
 		i++;
 	}
 	if (map->player != 1 || map->collects < 1 || map->exit != 1)
 		error("Wrong number of items", 0, 1);
-	return ;
 }
 
 void	is_rectangle(t_map *map)
 {
 	int	i;
 
-	i = 0;
-	i++;
-	while (i < map->rows - 1)
-	{
-		if (map->map[i][map->cols] != '\n')
+	i = 1;
+	while (i < map->rows)
+		if (map->map[i++][map->cols] != '\n')
 			error("Map is not rectangular!", 0, 1);
-		i++;
-	}
-	return ;
 }
 
 void	check_ber(char *file)
@@ -79,5 +72,4 @@ void	check_ber(char *file)
 	if (ft_strlen(file) < 4 || ft_strncmp(name_end, ext, 4) != 0)
 		error("Wrong file format, need .ber\n", name_end, 2);
 	free(name_end);
-	return ;
 }
