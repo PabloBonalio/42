@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   02_check_map.c                                     :+:      :+:    :+:   */
+/*   preliminar_map_check.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 19:09:11 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/10 20:24:04 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/12 17:24:28 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exit_codes.h"
-#include "so_long.h"
+#include "../exit_codes.h"
+#include "../so_long.h"
 
 void	is_enclosed(t_map *map)
 {
@@ -42,8 +42,8 @@ void	count_elements(t_map *map, t_player *player)
 			if (map->map[i][j] == 'P')
 			{
 				map->player++;
-				player->start_x = j;
-				player->start_y = i;
+				player->player_x = j;
+				player->player_y = i;
 			}
 			if (map->map[i][j] == 'C')
 				map->collects++;
@@ -52,8 +52,6 @@ void	count_elements(t_map *map, t_player *player)
 		}
 		i++;
 	}
-	ft_printf(1, "\033[33mPlayer coordinates: [%d, %d]\033[30m\n",
-		player->start_x, player->start_y);
 }
 
 void	is_rectangle(t_map *map)
@@ -64,6 +62,20 @@ void	is_rectangle(t_map *map)
 	while (i < map->rows)
 		if (map->map[i++][map->cols] != '\n')
 			error("Map is not rectangular!", 0, 1);
+}
+
+void	fill_map(char *file, t_map *map)
+{
+	int	i;
+	int	fd;
+
+	i = 0;
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		error("Failed to open the map", 0, 1);
+	while (i < map->rows)
+		map->map[i++] = get_next_line(fd);
+	close(fd);
 }
 
 void	get_dimensions(char *file, t_map *map)
@@ -83,21 +95,5 @@ void	get_dimensions(char *file, t_map *map)
 		temp = get_next_line(fd);
 	}
 	free(temp);
-	close(fd);
-	ft_printf(1, "\033[33mRows: %d\nColumns: %d\033[30m\n", map->rows,
-		map->cols);
-}
-
-void	fill_map(char *file, t_map *map)
-{
-	int	i;
-	int	fd;
-
-	i = 0;
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
-		error("Failed to open the map", 0, 1);
-	while (i < map->rows)
-		map->map[i++] = get_next_line(fd);
 	close(fd);
 }

@@ -1,8 +1,8 @@
 NAME = so_long
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror #-g3 #-fsanitize=address
 
-SOURCES = 01_so_long.c 02_check_map.c 03_flood_fill.c 04_errors.c
+SOURCES = src/main.c src/preliminar_map_check.c src/game/03_game_drawing.c src/game/04_game_movements.c src/auxiliaries.c
 OBJECTS = $(SOURCES:.c=.o)
 
 MY_LIB_DIR = ./libft
