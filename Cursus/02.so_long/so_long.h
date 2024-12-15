@@ -6,7 +6,7 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 18:10:55 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/12 17:17:33 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/15 19:15:59 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,13 @@ typedef struct s_tile
 	int				endian;
 }					t_tile;
 
-typedef struct s_player
-{
-	char			*player;
-	int				player_x;
-	int				player_y;
-	int				count_moves;
-	int				collects;
-}					t_player;
-
 typedef struct s_map
 {
 	char			**map;
 	int				rows;
 	int				cols;
-	int				map_x;
-	int				map_y;
+	int				x;
+	int				y;
 	int				collects;
 	int				exit;
 	int				player;
@@ -76,6 +67,7 @@ typedef struct s_map
 
 typedef struct s_game
 {
+	struct s_map	map;
 	struct s_tile	pc;
 	struct s_tile	item;
 	struct s_tile	exit;
@@ -84,29 +76,26 @@ typedef struct s_game
 	void			*mlx;
 	void			*window;
 	void			*img;
-	char			*addr;
-	int				window_x;
-	int				window_y;
-	int				bits;
-	int				len;
-	int				endian;
+	int				moves;
 }					t_game;
 
-void				error(char *message, void *to_free, int exit_code);
+void				check_map(char *file);
+void				map_init(t_map *map, char *file);
+void				error(char *message, t_map *map, int exit_code);
 void				get_dimensions(char *file, t_map *map);
 void				fill_map(char *file, t_map *map);
 void				is_rectangle(t_map *map);
-void				count_elements(t_map *map, t_player *player);
+void				count_elements(t_map *map);
 void				is_enclosed(t_map *map);
 void				flood_fill(t_map *map, int x, int y);
 void				reset_elements(t_map *map);
-void				reset_map(t_map *map, char *file, t_player *player);
+void				reset_map(t_map *map, char *file);
 void				draw_map(t_map *map, t_game *game);
-int					key_input(int keycode, t_game *game, t_map *map,
-						t_player *player);
+int					xpm_check(t_game *game);
+int					key_input(int key, t_game *game);
 void				img_destroyer(t_game *game);
-void				victory(t_game *game, t_map *map);
-int					close_game(t_game *game, t_map *map);
+void				victory(t_game *game);
+int					close_game(t_game *game);
 void				free_map(t_map *map);
 
 #endif
