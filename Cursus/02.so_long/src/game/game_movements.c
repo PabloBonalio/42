@@ -6,7 +6,7 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 15:57:14 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/15 22:39:51 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/16 16:10:24 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	move_up(t_game *game)
 		if (next_tile == 'C' || next_tile == 'P' || next_tile == '0')
 		{
 			mlx_put_image_to_window(game->mlx, game->window, game->pc.img,
-				game->map.x * TILE_SIZE, (game->map.y - 1) * TILE_SIZE + OFFSET);
+				game->map.x * TILE_SIZE, (game->map.y - 1) * TILE_SIZE
+				+ OFFSET);
 			mlx_put_image_to_window(game->mlx, game->window, game->floor.img,
 				game->map.x * TILE_SIZE, game->map.y * TILE_SIZE + OFFSET);
 			game->map.map[game->map.y][game->map.x] = '0';
@@ -46,7 +47,8 @@ void	move_down(t_game *game)
 		if (next_tile == 'C' || next_tile == 'P' || next_tile == '0')
 		{
 			mlx_put_image_to_window(game->mlx, game->window, game->pc.img,
-				game->map.x * TILE_SIZE, (game->map.y + 1) * TILE_SIZE + OFFSET);
+				game->map.x * TILE_SIZE, (game->map.y + 1) * TILE_SIZE
+				+ OFFSET);
 			mlx_put_image_to_window(game->mlx, game->window, game->floor.img,
 				game->map.x * TILE_SIZE, game->map.y * TILE_SIZE + OFFSET);
 			game->map.map[game->map.y][game->map.x] = '0';
@@ -69,7 +71,8 @@ void	move_left(t_game *game)
 		if (next_tile == 'C' || next_tile == 'P' || next_tile == '0')
 		{
 			mlx_put_image_to_window(game->mlx, game->window, game->pc.img,
-				(game->map.x - 1) * TILE_SIZE, (game->map.y) * TILE_SIZE + OFFSET);
+				(game->map.x - 1) * TILE_SIZE, (game->map.y) * TILE_SIZE
+				+ OFFSET);
 			mlx_put_image_to_window(game->mlx, game->window, game->floor.img,
 				game->map.x * TILE_SIZE, game->map.y * TILE_SIZE + OFFSET);
 			game->map.map[game->map.y][game->map.x] = '0';
@@ -92,7 +95,8 @@ void	move_right(t_game *game)
 		if (next_tile == 'C' || next_tile == 'P' || next_tile == '0')
 		{
 			mlx_put_image_to_window(game->mlx, game->window, game->pc.img,
-				(game->map.x + 1)* TILE_SIZE, game->map.y * TILE_SIZE + OFFSET);
+				(game->map.x + 1) * TILE_SIZE, game->map.y * TILE_SIZE
+				+ OFFSET);
 			mlx_put_image_to_window(game->mlx, game->window, game->floor.img,
 				game->map.x * TILE_SIZE, game->map.y * TILE_SIZE + OFFSET);
 			game->map.map[game->map.y][game->map.x] = '0';

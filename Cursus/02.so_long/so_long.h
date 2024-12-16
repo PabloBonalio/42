@@ -6,7 +6,7 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 18:10:55 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/15 22:41:01 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/16 16:56:04 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,14 @@ typedef struct s_game
 	struct s_tile	pc;
 	struct s_tile	item;
 	struct s_tile	exit;
-	struct s_tile	wall;
 	struct s_tile	floor;
+	struct s_tile	wall;
 	void			*mlx;
 	void			*window;
-	void			*img;
 	int				moves;
 }					t_game;
 
+void				check_ber(char *file);
 void				check_map(char *file);
 void				map_init(t_map *map, char *file);
 void				error(char *message, t_map *map, int exit_code);
@@ -94,11 +94,11 @@ void				is_enclosed(t_map *map);
 void				flood_fill(t_map *map, int x, int y);
 void				reset_elements(t_map *map);
 void				reset_map(t_map *map, char *file);
-void				draw_map(t_map *map, t_game *game);
-int					xpm_check(t_game *game);
+void				draw_map(t_game *game);
+void				xpm_check(t_game *game);
 int					key_input(int key, t_game *game);
 void				img_destroyer(t_game *game);
-void	update_counter(t_game *game);
+void				update_counter(t_game *game);
 void				victory(t_game *game);
 int					close_game(t_game *game);
 void				free_map(t_map *map);

@@ -6,7 +6,7 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:23:16 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/15 19:30:08 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/16 16:49:09 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ void	img_destroyer(t_game *game)
 		mlx_destroy_image(game->mlx, game->floor.img);
 	if (game->wall.img)
 		mlx_destroy_image(game->mlx, game->wall.img);
-	if (game->img)
-		mlx_destroy_image(game->mlx, game->img);
 }
 
 void	reset_elements(t_map *map)
@@ -53,9 +51,21 @@ void	victory(t_game *game)
 int	close_game(t_game *game)
 {
 	img_destroyer(game);
-	mlx_destroy_window(game->mlx, game->window);
-	mlx_destroy_display(game->mlx);
+	if (game->window)
+		mlx_destroy_window(game->mlx, game->window);
+	if (game->mlx)
+		mlx_destroy_display(game->mlx);
 	free(game->mlx);
 	free_map(&game->map);
 	exit(EXIT_SUCCESS);
+}
+
+void	check_ber(char *file)
+{
+	int	len;
+
+	len = ft_strlen(file);
+	if (len < 4 || file[len - 1] != 'r' || file[len - 2] != 'e' || file[len
+		- 3] != 'b' || file[len - 4] != '.')
+		error("Wrong file format, need .ber\n", 0, 2);
 }

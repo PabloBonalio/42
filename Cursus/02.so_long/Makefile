@@ -1,6 +1,6 @@
 NAME = so_long
 CC = cc
-CFLAGS = -Wall -Wextra -Werror #-g3 #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 
 SOURCES = src/main.c src/map/map_compose.c src/map/preliminar_map_check.c src/game/game_drawing.c src/game/game_movements.c src/auxiliaries.c
 OBJECTS = $(SOURCES:.c=.o)
