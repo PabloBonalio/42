@@ -6,44 +6,12 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 18:47:14 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/16 16:55:37 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/16 19:13:52 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../exit_codes.h"
 #include "../../so_long.h"
-
-static void	get_xpm_image(t_game *game)
-{
-	game->pc.img = mlx_xpm_file_to_image(game->mlx,
-			"assets/textures/cat/cat_0.xpm", &game->pc.bits,
-			&game->pc.size_line);
-	game->item.img = mlx_xpm_file_to_image(game->mlx,
-			"assets/textures/collects/mouse_0.xpm", &game->item.bits,
-			&game->item.size_line);
-	game->exit.img = mlx_xpm_file_to_image(game->mlx,
-			"assets/textures/exit/exit_0.xpm", &game->exit.bits,
-			&game->exit.size_line);
-	game->floor.img = mlx_xpm_file_to_image(game->mlx,
-			"assets/textures/floor/floor_0.xpm", &game->floor.bits,
-			&game->floor.size_line);
-	game->wall.img = mlx_xpm_file_to_image(game->mlx,
-			"assets/textures/wall/wall_0.xpm", &game->wall.bits,
-			&game->wall.size_line);
-}
-
-void	xpm_check(t_game *game)
-{
-	if (!game->pc.img || !game->item.img || !game->exit.img || !game->floor.img
-		|| !game->wall.img)
-	{
-		img_destroyer(game);
-		mlx_destroy_window(game->mlx, game->window);
-		mlx_destroy_display(game->mlx);
-		free(game->mlx);
-		error("Could not load .xmp file", &game->map, 1);
-	}
-}
 
 void	get_tiles(t_game *game, int x, int y)
 {
@@ -62,6 +30,37 @@ void	get_tiles(t_game *game, int x, int y)
 	else if (game->map.map[y][x] == 'P')
 		mlx_put_image_to_window(game->mlx, game->window, game->pc.img, x
 			* TILE_SIZE, y * TILE_SIZE + OFFSET);
+}
+
+void	xpm_check(t_game *game)
+{
+	if (!game->pc.img || !game->item.img || !game->exit.img || !game->floor.img
+		|| !game->wall.img)
+	{
+		img_destroyer(game);
+		mlx_destroy_window(game->mlx, game->window);
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+		error("Could not load .xmp file", &game->map, 1);
+	}
+}
+static void	get_xpm_image(t_game *game)
+{
+	game->pc.img = mlx_xpm_file_to_image(game->mlx,
+			"assets/textures/cat/cat_0.xpm", &game->pc.bits,
+			&game->pc.size_line);
+	game->item.img = mlx_xpm_file_to_image(game->mlx,
+			"assets/textures/collects/mouse_0.xpm", &game->item.bits,
+			&game->item.size_line);
+	game->exit.img = mlx_xpm_file_to_image(game->mlx,
+			"assets/textures/exit/exit_0.xpm", &game->exit.bits,
+			&game->exit.size_line);
+	game->floor.img = mlx_xpm_file_to_image(game->mlx,
+			"assets/textures/floor/floor_0.xpm", &game->floor.bits,
+			&game->floor.size_line);
+	game->wall.img = mlx_xpm_file_to_image(game->mlx,
+			"assets/textures/wall/wall_0.xpm", &game->wall.bits,
+			&game->wall.size_line);
 }
 
 void	draw_map(t_game *game)

@@ -6,7 +6,7 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:23:16 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/16 16:49:09 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/16 17:42:06 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,6 @@ void	victory(t_game *game)
 {
 	ft_printf(1, "VICTORY!\n");
 	close_game(game);
-}
-
-int	close_game(t_game *game)
-{
-	img_destroyer(game);
-	if (game->window)
-		mlx_destroy_window(game->mlx, game->window);
-	if (game->mlx)
-		mlx_destroy_display(game->mlx);
-	free(game->mlx);
-	free_map(&game->map);
-	exit(EXIT_SUCCESS);
 }
 
 void	check_ber(char *file)

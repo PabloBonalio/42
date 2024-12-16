@@ -6,7 +6,7 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 18:10:55 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/16 16:56:04 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/16 19:16:09 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,9 @@ void				draw_map(t_game *game);
 void				xpm_check(t_game *game);
 int					key_input(int key, t_game *game);
 void				img_destroyer(t_game *game);
-void				update_counter(t_game *game);
+int					update_counter(t_game *game);
 void				victory(t_game *game);
+void				game(char *file);
 int					close_game(t_game *game);
 void				free_map(t_map *map);
 
