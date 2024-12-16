@@ -6,7 +6,7 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 18:47:14 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/15 19:00:49 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/15 22:18:11 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,19 +70,19 @@ void	get_tiles(t_game *game, char **map, int x, int y)
 {
 	if (map[y][x] == '1')
 		mlx_put_image_to_window(game->mlx, game->window, game->wall.img, x
-			* TILE_SIZE, y * TILE_SIZE);
+			* TILE_SIZE, y * TILE_SIZE + OFFSET);
 	else if (map[y][x] == '0')
 		mlx_put_image_to_window(game->mlx, game->window, game->floor.img, x
-			* TILE_SIZE, y * TILE_SIZE);
+			* TILE_SIZE, y * TILE_SIZE + OFFSET);
 	else if (map[y][x] == 'E')
 		mlx_put_image_to_window(game->mlx, game->window, game->exit.img, x
-			* TILE_SIZE, y * TILE_SIZE);
+			* TILE_SIZE, y * TILE_SIZE + OFFSET);
 	else if (map[y][x] == 'C')
 		mlx_put_image_to_window(game->mlx, game->window, game->item.img, x
-			* TILE_SIZE, y * TILE_SIZE);
+			* TILE_SIZE, y * TILE_SIZE + OFFSET);
 	else if (map[y][x] == 'P')
 		mlx_put_image_to_window(game->mlx, game->window, game->pc.img, x
-			* TILE_SIZE, y * TILE_SIZE);
+			* TILE_SIZE, y * TILE_SIZE + OFFSET);
 }
 
 void	draw_map(t_map *map, t_game *game)

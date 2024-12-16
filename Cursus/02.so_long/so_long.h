@@ -6,7 +6,7 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 18:10:55 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/15 19:15:59 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/15 22:41:01 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@
 
 # ifndef TILE_SIZE
 #  define TILE_SIZE 64
+# endif
+
+# ifndef OFFSET
+#  define OFFSET (3 * TILE_SIZE)
 # endif
 
 # define K_ESC 65307
@@ -94,6 +98,7 @@ void				draw_map(t_map *map, t_game *game);
 int					xpm_check(t_game *game);
 int					key_input(int key, t_game *game);
 void				img_destroyer(t_game *game);
+void	update_counter(t_game *game);
 void				victory(t_game *game);
 int					close_game(t_game *game);
 void				free_map(t_map *map);

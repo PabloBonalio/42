@@ -6,12 +6,27 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:16:33 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/15 19:45:21 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/15 22:41:38 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../exit_codes.h"
 #include "../so_long.h"
+
+void	update_counter(t_game *game)
+{
+	// Clear the counter area by redrawing the background
+	mlx_put_image_to_window(game->mlx, game->window, game->floor.img, 0, 0);
+	mlx_put_image_to_window(game->mlx, game->window, game->floor.img, TILE_SIZE, 0);
+	mlx_put_image_to_window(game->mlx, game->window, game->floor.img, 2 * TILE_SIZE, 0);
+
+	// Display the updated movement count
+	char *moves_str;
+
+	moves_str = ft_itoa(game->moves); // Convert moves to string
+	mlx_string_put(game->mlx, game->window, TILE_SIZE / 2, TILE_SIZE / 2, 0xFFFFFF, moves_str);
+	free(moves_str); // Free the allocated string after use
+}
 
 static void	check_ber(char *file)
 {
@@ -34,7 +49,7 @@ void	game(char *file)
 	game->mlx = mlx_init();
 	game->img = mlx_new_image(game->mlx, map->cols * TILE_SIZE, map->rows
 			* TILE_SIZE);
-	game->window = mlx_new_window(game->mlx, map->cols * TILE_SIZE, map->rows
+	game->window = mlx_new_window(game->mlx, map->cols * TILE_SIZE, (map->rows + 3)
 			* TILE_SIZE, "So_long by Bonalio");
 	draw_map(map, game);
 	mlx_key_hook(game->window, key_input, game);
