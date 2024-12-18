@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 SOURCES = src/main.c src/map/map_compose.c src/map/preliminar_map_check.c \
 	src/game/game_cicle.c src/game/game_drawing.c src/game/game_movements.c \
-	src/auxiliaries.c src/jumping_cat/jumping_cat.c
+	src/auxiliaries.c
 OBJECTS = $(SOURCES:.c=.o)
 
 MY_LIB_DIR = ./libft

@@ -6,7 +6,7 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 17:41:09 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/16 19:16:04 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/18 18:16:03 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ int	update_counter(t_game *game)
 				TILE_SIZE * i, TILE_SIZE * j);
 	}
 	moves_str = ft_itoa(game->moves);
-	mlx_string_put(game->mlx, game->window, TILE_SIZE, TILE_SIZE, 0xFFF0FF,
+	mlx_string_put(game->mlx, game->window, TILE_SIZE / 2, TILE_SIZE / 2,
+		0xF5E5B8, "Moves:");
+	mlx_string_put(game->mlx, game->window, TILE_SIZE, TILE_SIZE, 0xF5E5B8,
 		moves_str);
 	return (free(moves_str), 0);
 }
@@ -62,6 +64,8 @@ void	game(char *file)
 	game->window = mlx_new_window(game->mlx, game->map.cols * TILE_SIZE,
 			(game->map.rows + 3) * TILE_SIZE, "So_long by Bonalio");
 	draw_map(game);
+	mlx_set_font(game->mlx, game->window,
+		"-misc-fixed-bold-r-normal--20-200-75-75-c-100-iso8859-1");
 	update_counter(game);
 	my_hooks(game);
 	mlx_loop(game->mlx);
