@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   graphic_preps.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/02 17:16:33 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/19 16:23:38 by pperez-a         ###   ########.fr       */
+/*   Created: 2024/12/19 16:36:56 by pperez-a          #+#    #+#             */
+/*   Updated: 2024/12/19 17:17:08 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../exit_codes.h"
-#include "../so_long.h"
+#include "../../exit_codes.h"
+#include "../../so_long.h"
 
-int	main(int argc, char **argv)
+void	graphic_preps(t_game *game)
 {
-	if (argc < 2)
-		error("We are going to need a map mate!", 0, 0, 1);
-	check_map(argv[1]);
-	game(argv[1]);
+	choose_player(game);
+	draw_map(game);
+	mlx_set_font(game->mlx, game->window,
+		"-misc-fixed-bold-r-normal--20-200-75-75-c-100-iso8859-1");
+	set_counter(game);
 }

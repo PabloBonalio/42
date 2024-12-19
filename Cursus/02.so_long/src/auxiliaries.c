@@ -6,18 +6,20 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:23:16 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/16 17:42:06 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/19 16:06:10 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../exit_codes.h"
 #include "../so_long.h"
 
-void	error(char *message, t_map *map, int exit_code)
+void	error(char *message, t_map *map, t_game *game, int exit_code)
 {
 	ft_printf(2, "\033[31mError: %s\033[30m\n", message);
 	if (map)
 		free_map(map);
+	if (game)
+		close_game(game);
 	exit(exit_code);
 }
 
@@ -46,14 +48,4 @@ void	victory(t_game *game)
 {
 	ft_printf(1, "VICTORY!\n");
 	close_game(game);
-}
-
-void	check_ber(char *file)
-{
-	int	len;
-
-	len = ft_strlen(file);
-	if (len < 4 || file[len - 1] != 'r' || file[len - 2] != 'e' || file[len
-		- 3] != 'b' || file[len - 4] != '.')
-		error("Wrong file format, need .ber\n", 0, 2);
 }

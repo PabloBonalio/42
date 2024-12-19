@@ -6,14 +6,14 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 17:41:09 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/18 18:16:03 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:44:15 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../exit_codes.h"
 #include "../../so_long.h"
 
-int	update_counter(t_game *game)
+int	set_counter(t_game *game)
 {
 	char	*moves_str;
 	int		i;
@@ -63,10 +63,7 @@ void	game(char *file)
 	game->mlx = mlx_init();
 	game->window = mlx_new_window(game->mlx, game->map.cols * TILE_SIZE,
 			(game->map.rows + 3) * TILE_SIZE, "So_long by Bonalio");
-	draw_map(game);
-	mlx_set_font(game->mlx, game->window,
-		"-misc-fixed-bold-r-normal--20-200-75-75-c-100-iso8859-1");
-	update_counter(game);
+	graphic_preps(game);
 	my_hooks(game);
 	mlx_loop(game->mlx);
 }

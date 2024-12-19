@@ -3,8 +3,9 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 SOURCES = src/main.c src/map/map_compose.c src/map/preliminar_map_check.c \
-	src/game/game_cicle.c src/game/game_drawing.c src/game/game_movements.c \
-	src/auxiliaries.c
+	src/game/game_cicle.c src/game/game_movements.c src/auxiliaries.c\
+	 src/graphic_preps/draw_map.c src/graphic_preps/choose_player.c \
+	src/graphic_preps/graphic_preps.c #src/graphic_preps/prep_animations.c
 OBJECTS = $(SOURCES:.c=.o)
 
 MY_LIB_DIR = ./libft

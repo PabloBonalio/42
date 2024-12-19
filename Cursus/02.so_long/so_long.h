@@ -6,7 +6,7 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 18:10:55 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/18 19:11:46 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:30:33 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,15 @@
 # define K_S 115
 # define K_W 119
 
+typedef struct s_select_player
+{
+	void			*mlx;
+	void			*window;
+	char			**names;
+	int				count;
+	int				selected;
+}					t_select_player;
+
 typedef struct s_tile
 {
 	int				tile_x;
@@ -73,6 +82,7 @@ typedef struct s_map
 typedef struct s_game
 {
 	struct s_map	map;
+	struct s_list	player;
 	struct s_tile	pc;
 	struct s_tile	item;
 	struct s_tile	exit;
@@ -83,10 +93,9 @@ typedef struct s_game
 	int				moves;
 }					t_game;
 
-void				check_ber(char *file);
 void				check_map(char *file);
+void				check_ber(t_map *map, char *file);
 void				map_init(t_map *map, char *file);
-void				error(char *message, t_map *map, int exit_code);
 void				get_dimensions(char *file, t_map *map);
 void				fill_map(char *file, t_map *map);
 void				is_rectangle(t_map *map);
@@ -94,15 +103,18 @@ void				count_elements(t_map *map);
 void				is_enclosed(t_map *map);
 void				flood_fill(t_map *map, int x, int y);
 void				reset_elements(t_map *map);
-void				reset_map(t_map *map, char *file);
 void				draw_map(t_game *game);
 void				xpm_check(t_game *game);
 int					key_input(int key, t_game *game);
 void				img_destroyer(t_game *game);
-int					update_counter(t_game *game);
+int					set_counter(t_game *game);
 void				victory(t_game *game);
+void				choose_player(t_game *game);
 void				game(char *file);
+void				graphic_preps(t_game *game);
 int					close_game(t_game *game);
 void				free_map(t_map *map);
+void				error(char *message, t_map *map, t_game *game,
+						int exit_code);
 
 #endif

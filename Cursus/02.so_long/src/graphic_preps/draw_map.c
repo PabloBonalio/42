@@ -6,7 +6,7 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 18:47:14 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/18 18:19:37 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/19 16:20:20 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	xpm_check(t_game *game)
 		mlx_destroy_window(game->mlx, game->window);
 		mlx_destroy_display(game->mlx);
 		free(game->mlx);
-		error("Could not load .xmp file", &game->map, 1);
+		error("Could not load .xmp file", &game->map, 0, 1);
 	}
 }
 static void	get_xpm_image(t_game *game)

@@ -6,7 +6,7 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 18:08:57 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/16 16:16:21 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/19 16:07:41 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	map_init(t_map *map, char *file)
 	get_dimensions(file, map);
 	map->map = malloc(sizeof(char *) * (map->rows));
 	if (!map->map)
-		error("Error: Memory allocation for map failed", map, 3);
+		error("Error: Memory allocation for map failed", map, 0, 3);
 	fill_map(file, map);
 	count_elements(map);
 }
@@ -45,21 +45,31 @@ void	free_map(t_map *map)
 	free(map->map);
 	free(map);
 }
+void	check_ber(t_map *map, char *file)
+{
+	int	len;
+
+	len = ft_strlen(file);
+	if (len < 4 || file[len - 1] != 'r' || file[len - 2] != 'e' || file[len
+		- 3] != 'b' || file[len - 4] != '.')
+		error("Wrong file format, need .ber\n", map, 0, 2);
+}
 
 void	check_map(char *file)
 {
 	t_map	*map;
 
 	map = ft_calloc(1, sizeof(t_map));
+	check_ber(map, file);
 	map_init(map, file);
 	if (map->player != 1 || map->collects < 1 || map->exit != 1)
-		error("Wrong number of items", map, 1);
+		error("Wrong number of items", map, 0, 1);
 	is_rectangle(map);
 	is_enclosed(map);
 	flood_fill(map, map->x, map->y);
 	reset_elements(map);
 	count_elements(map);
 	if (map->player != 0 || map->collects != 0 || map->exit != 0)
-		error("Looks like map doesn't have a solution...\n", map, 1);
+		error("Looks like map doesn't have a solution...\n", map, 0, 1);
 	free_map(map);
 }

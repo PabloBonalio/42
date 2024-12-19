@@ -6,7 +6,7 @@
 /*   By: pperez-a <pperez-a@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 15:57:14 by pperez-a          #+#    #+#             */
-/*   Updated: 2024/12/16 18:40:54 by pperez-a         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:27:10 by pperez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,6 @@ int	key_input(int key, t_game *game)
 		move_down(game);
 	else if (key == K_D)
 		move_right(game);
-	update_counter(game);
+	set_counter(game);
 	return (0);
 }
